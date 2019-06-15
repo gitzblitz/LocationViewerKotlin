@@ -1,36 +1,57 @@
 package com.gitzblitz.locationviewerkotlin.di
 
-import android.app.Application
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.gitzblitz.locationviewerkotlin.db.AppDatabase
+import com.gitzblitz.locationviewerkotlin.db.LocationDao
+import com.gitzblitz.locationviewerkotlin.db.LocationRepository
+import com.gitzblitz.locationviewerkotlin.db.MockData
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 @Module
-class DataModule{
+class DataModule {
 
     @Provides
     @Singleton
     fun providesAppDatabase(context: Context): AppDatabase {
 
         return Room.databaseBuilder(context, AppDatabase::class.java, "location_database")
-//            .addCallback(CALLBACK)
+            .addCallback(object : RoomDatabase.Callback() {
+                @SuppressLint("CheckResult")
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    super.onCreate(db)
+                    val mockData = MockData()
+                    Single.fromCallable {
+                        providesAppDatabase(context).locationDao().insert(mockData.generateLocations())
+                    }.subscribeOn(Schedulers.io())
+                        .subscribe({
+
+                        }, {
+
+                        })
+
+
+                }
+            })
             .fallbackToDestructiveMigration()
             .build()
     }
 
-    private val CALLBACK = object : RoomDatabase.Callback(){
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
 
-        }
-    }
+    @Provides
+    @Singleton
+    fun providesLocationDao(appDatabase: AppDatabase) = appDatabase.locationDao()
 
-
+    @Provides
+    @Singleton
+    fun provideRepository(locationDao: LocationDao) = LocationRepository(locationDao)
 
 
 }

@@ -7,16 +7,17 @@ import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [(AndroidInjectionModule::class), (AppModule::class),(DataModule::class),(ActivityBuilder::class)])
+@Component(modules = [(AndroidInjectionModule::class), (AppModule::class), (DataModule::class), (ActivityBuilder::class), (ViewModelModule::class)])
 interface AppComponent {
 
     @Component.Builder
     interface Builder {
         @BindsInstance
-         fun application(application: LocationApplication): Builder
-         fun appModule(appModule: AppModule): Builder
-         fun dataModule(dataModule: DataModule): Builder
-         fun build(): AppComponent
+        fun application(application: LocationApplication): Builder
+
+        fun appModule(appModule: AppModule): Builder
+        fun dataModule(dataModule: DataModule): Builder
+        fun build(): AppComponent
     }
 
     fun inject(locationApplication: LocationApplication)
