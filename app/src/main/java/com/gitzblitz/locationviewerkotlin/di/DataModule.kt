@@ -2,6 +2,7 @@ package com.gitzblitz.locationviewerkotlin.di
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -33,10 +34,10 @@ class DataModule {
                     }.subscribeOn(Schedulers.io())
                         .subscribe({
 
+                            Log.d("CALLBACK", "Data inserted")
                         }, {
-
+                            it.printStackTrace()
                         })
-
 
                 }
             })

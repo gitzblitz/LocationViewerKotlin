@@ -47,12 +47,8 @@ class MockData {
     private fun getRandomLocation(): Location {
         val rand = Random()
         val len = cities.size
-        var randomInt: Int
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            randomInt = ThreadLocalRandom.current().nextInt(0, len)
-        } else {
+        val randomInt: Int
             randomInt = rand.nextInt(len)
-        }
         val randCity = cities[randomInt]
 
         return Location(
