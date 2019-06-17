@@ -20,7 +20,7 @@ interface LocationDao {
     @Query("DELETE FROM location")
     fun deleteAll()
 
-    @Query("SELECT * FROM location ORDER BY name ASC")
+    @Query("SELECT * FROM location")
     fun getAllLocations(): DataSource.Factory<Int, Location>
 
     @Transaction
