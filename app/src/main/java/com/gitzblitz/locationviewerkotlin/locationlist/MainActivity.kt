@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gitzblitz.locationviewerkotlin.R
@@ -27,7 +27,7 @@ class MainActivity : DaggerAppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val adapter = LocationListAdapter()
-        val viewModel = ViewModelProviders.of(this, viewModelFactory).get(LocationListViewModel::class.java)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(LocationListViewModel::class.java)
         val recyclerView = findViewById<RecyclerView>(R.id.locations_recyclerview)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
