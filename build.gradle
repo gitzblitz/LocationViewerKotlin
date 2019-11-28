@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.3.31'
+    ext.kotlin_version = '1.3.50'
     repositories {
         google()
         jcenter()
@@ -28,13 +28,13 @@ task clean(type: Delete) {
 }
 
 ext {
-    appCompatVersion ='1.1.0-beta01'
-    constraintLayoutVersion ='2.0.0-beta1'
+    appCompatVersion ='1.1.0'
+    constraintLayoutVersion ='2.0.0-beta3'
     jUnitVersion = '4.13-beta-3'
     testRunnerVersion ='1.2.0-beta01'
     esspressoVersion = '3.2.0-beta01'
-    roomVersion = '2.1.0-rc01'
-    archLifecycleVersion = '2.2.0-alpha01'
+    roomVersion = '2.2.2'
+    archLifecycleVersion = '2.2.0-rc02'
     pagingVersion = '2.1.0'
     materialDesign = '1.0.0'
     cardViewVersion = '1.0.0'
